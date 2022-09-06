@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import JSONData from "./MOCK_DATA.json";
 
 function App() {
-  const [data, setData] = React.useState("");
+  const [data, setData] = useState("");
 
   const handleData = (e) => {
     setData(e.target.value);
@@ -15,15 +15,17 @@ function App() {
       {JSONData.filter((val) => {
         if (data == "") {
           return val;
-        } else if (
-          val.first_name.toLowerCase().includes(data.toLocaleLowerCase())
-        ) {
+        } else if (val.first_name.toLowerCase().includes(data.toLowerCase())) {
+          return val;
+        } else if (val.last_name.toLowerCase().includes(data.toLowerCase())) {
           return val;
         }
       }).map((val, key) => {
         return (
           <div className="user" key={key}>
-            <p>{val.first_name}</p>
+            <p>
+              {val.first_name} {val.last_name}
+            </p>
           </div>
         );
       })}
